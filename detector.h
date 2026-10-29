@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Arduino.h>
 #include "config.h"
 
@@ -53,7 +53,6 @@ public:
     }
 };
 
-// ==================== 統合判定器（4票対応）====================
 class FusionJudge {
 public:
     bool quakeConfirmed = false;
@@ -68,13 +67,12 @@ public:
         requiredVotes  = reqVotes;
     }
 
-    // 4票目（fftVote）を追加
     bool update(bool staActive, bool fftVote, float pga, float intensity) {
         votes = 0;
-        if (staActive)                  votes++;   // 1 STA/LTA
-        if (fftVote)                    votes++;   // 2 FFT帯域エネルギー
-        if (pga > pgaTriggerGal)        votes++;   // 3 PGA
-        if (intensity > seisIntTrigger) votes++;   // 4 計測震度
+        if (staActive)                  votes++;
+        if (fftVote)                    votes++;
+        if (pga > pgaTriggerGal)        votes++;
+        if (intensity > seisIntTrigger) votes++;
         quakeConfirmed = (votes >= requiredVotes);
         return quakeConfirmed;
     }

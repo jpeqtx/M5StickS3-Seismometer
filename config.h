@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // ===== サンプリング =====
 constexpr int   SAMPLE_RATE_HZ      = 100;
@@ -10,7 +10,7 @@ constexpr float STA_LTA_TRIGGER     = 3.0f;
 constexpr float STA_LTA_DEACTIVATE  = 1.5f;
 
 // ===== 功刀（Kunugi）2012フィルタのパラメータ =====
-constexpr float K2012_F0   = 1.0f;
+constexpr float K2012_F0   = 0.45f;
 constexpr float K2012_F1   = 7.0f;
 constexpr float K2012_F2   = 0.5f;
 constexpr float K2012_F3   = 12.0f;
@@ -23,20 +23,16 @@ constexpr float K2012_H4   = 0.6f;
 constexpr float K2012_H5   = 0.6f;
 constexpr float K2012_GAIN = 1.262f;
 
-// ===== ピークホールド =====
-constexpr float PEAK_DECAY_RATE = 0.98f;   // 毎サンプル乗算（半減期 約0.35秒 @100Hz）
-constexpr float NOISE_GATE_GAL  = 2.5f;    // ノイズゲート [gal]
-
 // ===== 0.3秒ルール =====
 constexpr int   RING_BUFFER_SIZE    = 100;
 constexpr int   RING_SORT_INDEX     = 30;
 
 // ===== FFT =====
-constexpr int   FFT_SAMPLES         = 256;    // 2.56秒分
-constexpr float FFT_NOISE_THRESHOLD = 0.5f;   // 帯域エネルギーの閾値
-constexpr float QUAKE_FREQ_LOW      = 0.5f;   // 地震波帯域の下限 [Hz]
-constexpr float QUAKE_FREQ_HIGH     = 10.0f;  // 地震波帯域の上限 [Hz]
-constexpr int   FFT_INTERVAL        = 32;     // 32サンプルごとにFFT実行
+constexpr int   FFT_SAMPLES         = 256;
+constexpr float FFT_NOISE_THRESHOLD = 0.5f;
+constexpr float QUAKE_FREQ_LOW      = 0.5f;
+constexpr float QUAKE_FREQ_HIGH     = 10.0f;
+constexpr int   FFT_INTERVAL        = 32;
 
 // ===== 統合判定 =====
 constexpr int   REQUIRED_VOTES      = 2;
@@ -72,7 +68,3 @@ constexpr long        NTP_TZ_OFFSET = 9 * 3600;
 
 // ===== サンプルバッファ =====
 constexpr int   SAMPLE_BUF_SIZE = 512;
-
-// ===== WAV再生ゲイン =====
-// 1.0f = 無加工、1.5f = 1.5倍、上限はクリッピング次第
-constexpr float WAV_GAIN = 1.5f;
