@@ -1,5 +1,7 @@
-﻿#include <M5Unified.h>
+#include <M5Unified.h>
 #include <M5StickS3_ENV_Hat_III.h>
+#include <Network.h>
+#include <esp32-hal-psram.h>
 #include <WiFi.h>
 #include <WebServer.h>
 #include <Preferences.h>
@@ -611,14 +613,14 @@ void setup() {
             if (wf) { if (wf.size() > maxWavSize) maxWavSize = wf.size(); wf.close(); }
         }
         if (maxWavSize > 0) {
-            g_wavBufMax = maxWavSize; g_wavBuf = (uint8_t*)malloc(g_wavBufMax);
+            g_wavBufMax = maxWavSize; g_wavBuf = (uint8_t*)ps_malloc(g_wavBufMax);
             if (g_wavBuf) Serial.printf("WAV buffer allocated: %u bytes (free heap: %u)\n", g_wavBufMax, ESP.getFreeHeap());
             else Serial.printf("FATAL: WAV buffer alloc failed (%u bytes)\n", g_wavBufMax);
         }
     }
     loadCalibration(); loadConfig();
     M5.Lcd.setBrightness(cfgBrightnessNormal); M5.Speaker.setVolume(cfgBeepVolume);
-    canvas.setPsram(false); canvas.setColorDepth(16); canvas.createSprite(M5.Lcd.width(), M5.Lcd.height());
+    canvas.setPsram(true); canvas.setColorDepth(16); canvas.createSprite(M5.Lcd.width(), M5.Lcd.height());
     canvas.setTextColor(WHITE);
     M5.Lcd.fillScreen(BLACK); M5.Lcd.setTextColor(WHITE); M5.Lcd.setFont(&fonts::Font2);
     envOK = env.begin();

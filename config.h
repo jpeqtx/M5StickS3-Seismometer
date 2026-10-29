@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 // ===== サンプリング =====
 constexpr int   SAMPLE_RATE_HZ      = 100;
@@ -32,7 +32,6 @@ constexpr int   FFT_SAMPLES         = 256;
 constexpr float FFT_NOISE_THRESHOLD = 0.5f;
 constexpr float QUAKE_FREQ_LOW      = 0.5f;
 constexpr float QUAKE_FREQ_HIGH     = 10.0f;
-constexpr int   FFT_INTERVAL        = 32;
 
 // ===== 統合判定 =====
 constexpr int   REQUIRED_VOTES      = 2;

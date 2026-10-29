@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <Arduino.h>
 #include <math.h>
 #include <arduinoFFT.h>
@@ -202,39 +202,39 @@ public:
 
 class SpectrumAnalyzer {
 public:
-    float vReal[FFT_SAMPLES];
-    float vImag[FFT_SAMPLES];
+    double vReal[FFT_SAMPLES];
+    double vImag[FFT_SAMPLES];
     int   idx = 0;
-    int   intervalCounter = 0;
     float bandEnergy   = 0.0f;
     float dominantFreq = 0.0f;
     bool  fftVote      = false;
-    arduinoFFT* FFT = nullptr;
+    ArduinoFFT<double>* FFT = nullptr;
 
     void init() {
-        FFT = new arduinoFFT(vReal, vImag, FFT_SAMPLES, SAMPLE_RATE_HZ);
-        idx = 0; intervalCounter = 0; bandEnergy = 0.0f; dominantFreq = 0.0f; fftVote = false;
-        for (int i = 0; i < FFT_SAMPLES; i++) { vReal[i] = 0.0f; vImag[i] = 0.0f; }
+        if (FFT) { delete FFT; FFT = nullptr; }
+        memset(vReal, 0, sizeof(vReal));
+        memset(vImag, 0, sizeof(vImag));
+        FFT = new ArduinoFFT<double>(vReal, vImag, FFT_SAMPLES, SAMPLE_RATE_HZ);
+        idx = 0; bandEnergy = 0.0f; dominantFreq = 0.0f; fftVote = false;
     }
 
     void pushSample(float v) {
-        vReal[idx] = v; vImag[idx] = 0.0f;
-        idx++; intervalCounter++;
-        if (idx >= FFT_SAMPLES) { idx = 0; analyze(); intervalCounter = 0; }
-        else if (intervalCounter >= FFT_INTERVAL && idx >= FFT_SAMPLES / 2) { intervalCounter = 0; }
+        vReal[idx] = (double)v; vImag[idx] = 0.0;
+        idx++;
+        if (idx >= FFT_SAMPLES) { idx = 0; analyze(); }
     }
 
     void analyze() {
         if (!FFT) return;
-        FFT->Windowing(FFT_WIN_TYP_HANN, FFT_FORWARD);
-        FFT->Compute(FFT_FORWARD);
-        FFT->ComplexToMagnitude();
+        FFT->windowing(FFTWindow::Hann, FFTDirection::Forward);
+        FFT->compute(FFTDirection::Forward);
+        FFT->complexToMagnitude();
         int bins = FFT_SAMPLES / 2;
         float binHz = (float)SAMPLE_RATE_HZ / (float)FFT_SAMPLES;
         bandEnergy = 0.0f; float maxMag = 0.0f; dominantFreq = 0.0f;
         for (int i = 1; i < bins; i++) {
             float freq = i * binHz;
-            float mag = vReal[i];
+            float mag = (float)vReal[i];
             if (freq >= QUAKE_FREQ_LOW && freq <= QUAKE_FREQ_HIGH) bandEnergy += mag * mag;
             if (mag > maxMag) { maxMag = mag; dominantFreq = freq; }
         }

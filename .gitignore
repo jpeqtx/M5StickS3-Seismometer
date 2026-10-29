@@ -16,3 +16,24 @@ desktop.ini
 
 # Logs
 *.log
+
+# Build cache
+build/
+.build/
+.cache/
+*.d
+*.o
+*.a
+
+# Secrets (誤コミット防止)
+secrets.h
+config_local.h
+*.pem
+*.key
+
+# Backup folders
+*_backup_*/
+
+# Arduino sketch backups
+*.ino.bak
+*.h.bak
