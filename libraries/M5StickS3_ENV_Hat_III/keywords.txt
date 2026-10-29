@@ -1,0 +1,39 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+M5StickS3_ENV_Hat_III	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+update	KEYWORD2
+getTemperatureSHT	KEYWORD2
+getHumidity	KEYWORD2
+getPressure	KEYWORD2
+getRawTemperatureSHT	KEYWORD2
+getRawHumidity	KEYWORD2
+getRawPressure	KEYWORD2
+setBaseOffsets	KEYWORD2
+setBaseTempOffset	KEYWORD2
+setHumOffset	KEYWORD2
+setPressOffset	KEYWORD2
+getBaseTempOffset	KEYWORD2
+getHumOffset	KEYWORD2
+getPressOffset	KEYWORD2
+getEffectiveTempOffset	KEYWORD2
+enableAutoComp	KEYWORD2
+isAutoCompEnabled	KEYWORD2
+isThermalEquilibrium	KEYWORD2
+setActualTemp	KEYWORD2
+getActualTempRef	KEYWORD2
+getCpuEnvDiff	KEYWORD2
+isQMPOK	KEYWORD2
+isSHTOK	KEYWORD2
+loadSettings	KEYWORD2
+saveSettings	KEYWORD2
+resetSettings	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
