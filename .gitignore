@@ -37,3 +37,4 @@ config_local.h
 # Arduino sketch backups
 *.ino.bak
 *.h.bak
+*.bak
